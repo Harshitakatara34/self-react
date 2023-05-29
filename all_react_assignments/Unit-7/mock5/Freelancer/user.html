@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <style>
+    .form-container {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .form-container label,
+    .form-container input,
+    .form-container select {
+      display: block;
+      margin-bottom: 10px;
+    }
+    .form-container button {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Registration Form</h2>
+    <form id="registrationForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" required>
+
+      <label for="profilePicture">Profile Picture:</label>
+      <input type="string" id="profilePicture"  required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" required>
+
+      <label for="profession">Profession:</label>
+      <select id="profession" required>
+        <option value="">Select Profession</option>
+        <option value="Student">Student</option>
+        <option value="Web Developer">Web Developer</option>
+        <option value="Graphic Designer">Graphic Designer</option>
+      </select>
+
+      <label for="skills">Skills:</label>
+      <input type="text" id="skills" required>
+
+      <label for="hourlyRate">Hourly Rate:</label>
+      <input type="number" id="hourlyRate" required>
+
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <script>
+//     async function getData() {
+//     let temp = await fetch("https://freelancer-kcvb.onrender.com/freelancers");
+//     let res = await temp.json();
+//     displayCard(res);
+//   }
+    const registrationForm = document.getElementById('registrationForm');
+
+    registrationForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const profile_picture = document.getElementById('profilePicture').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const profession = document.getElementById('profession').value;
+      const skills = document.getElementById('skills').value.split(',').map(skill => skill.trim());
+      const hourlyRate = parseFloat(document.getElementById('hourlyRate').value);
+
+      let formData={
+        name,
+        profile_picture,
+        email,
+        password,
+        profession,
+        skills,
+        hourly_rate:Number(hourlyRate),
+        isBooked:false,
+      }
+console.log(formData)
+      try {
+        const response = await fetch('https://freelancer-kcvb.onrender.com/freelancers', {
+          method: 'POST',
+          headers:{
+            "Content-Type":"application/json"
+          },
+          body: JSON.stringify(formData)
+        });
+    
+        if (response.ok) {
+          alert('Successfully registered.');
+          registrationForm.reset();
+         
+        } else {
+          alert('Registration failed.');
+        }
+      } catch (error) {
+        alert('An error occurred during registration.');
+        console.error(error);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+{
+  "books": [
+    {
+      "id": 10,
+      "title": "The Hobbit",
+      "author": "J.R.R. Tolkien",
+      "category": "Fantasy",
+      "image": "https://user-images.githubusercontent.com/101581634/234347807-eb036bad-42b3-4d03-a230-1a2e404cb961.jpg",
+      "price": 6981
+    },
+    {
+      "id": 11,
+      "title": "The Da Vinci Code",
+      "author": "Dan Brown",
+      "category": "Mystery",
+      "image": "https://user-images.githubusercontent.com/101581634/234347883-c80c57a5-4e34-4c2e-9367-4a27d1608087.jpg",
+      "price": 9562
+    },
+    {
+      "id": 12,
+      "title": "The Girl with the Dragon Tattoo",
+      "author": "Stieg Larsson",
+      "category": "Mystery",
+      "image": "https://user-images.githubusercontent.com/101581634/234347889-11ca9175-4394-4b45-b43f-5bcf59f3c22b.jpg",
+      "price": 352
+    },
+    {
+      "id": 14,
+      "title": "The Picture of Dorian Gray",
+      "author": "Oscar Wilde",
+      "category": "Classic",
+      "image": "https://user-images.githubusercontent.com/101581634/234347830-11504733-28c2-4a15-81f1-6dc072c5e54f.jpg",
+      "price": 1125
+    },
+    {
+      "id": 15,
+      "title": "1984",
+      "author": "George Orwell",
+      "category": "Dystopian",
+      "image": "https://user-images.githubusercontent.com/101581634/234347844-584268dd-c784-496e-a769-8166179d8f07.jpg",
+      "price": 7411
+    }
+  ]
+}

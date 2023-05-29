@@ -1,0 +1,11 @@
+{
+  "name": "first_project",
+  "version": "1.0.0",
+  "description": "first backend project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo"
+  },
+  "author": "chunnu",
+  "license": "ISC"
+}

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .card img {
+      width: 100%;
+      max-width: 200px;
+      height: auto;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .card h1 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .card p {
+      margin-bottom: 5px;
+    }
+
+    .book-btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .book-btn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Appointments</h1>
+  <div>
+    <label for="filter-specialization">Filter by Specialization:</label>
+    <select id="filter-specialization">
+      <option value="">All</option>
+      <option value="Cardiologist">Cardiologist</option>
+      <option value="Dermatologist">Dermatologist</option>
+      <option value="Pediatrician">Pediatrician</option>
+      <option value="Psychiatrist">Psychiatrist</option>
+    </select>
+  </div>
+  <div>
+    <label for="search-doctor">Search by Doctor's name:</label>
+    <input type="text" id="search-doctor">
+    <button id="search-btn">Search</button>
+  </div>
+  <div id="cards"></div>
+
+  <script>
+    let doctorsData = []; // To store the original data from the API
+    let filteredData = []; // To store the data after applying filters
+
+    async function getData() {
+      let data = await fetch("https://doctors-n4qb.onrender.com/appointments");
+      let res = await data.json();
+      doctorsData = res;
+      filteredData = res;
+      displayCards(filteredData);
+    }
+
+    function displayCards(data) {
+      const cardsContainer = document.getElementById("cards");
+      cardsContainer.innerHTML = "";
+
+      data.forEach((el) => {
+        let card = document.createElement("div");
+        card.classList.add("card");
+
+        let image = document.createElement("img");
+        image.src = el.image;
+        card.appendChild(image);
+
+        let name = document.createElement("h1");
+        name.textContent = el.name;
+        card.appendChild(name);
+
+        let specialization = document.createElement("p");
+        specialization.textContent = "Specialization: " + el.specialization;
+        card.appendChild(specialization);
+
+        let experience = document.createElement("p");
+        experience.textContent = "Experience: " + el.experience + " years";
+        card.appendChild(experience);
+
+        let location = document.createElement("p");
+        location.textContent ="Location: " + el.location;
+card.appendChild(location);
+
+
+    let date = document.createElement("p");
+    date.textContent = "Date: " + el.date;
+    card.appendChild(date);
+
+    let slots = document.createElement("p");
+    slots.textContent = "Slots: " + el.slots;
+    card.appendChild(slots);
+
+    let fees = document.createElement("p");
+    fees.textContent = "Fees: $" + el.fee;
+    card.appendChild(fees);
+
+    let bookBtn = document.createElement("button");
+    bookBtn.classList.add("book-btn");
+    bookBtn.textContent = "Book Now";
+    bookBtn.addEventListener("click", () => {
+      bookAppointment(el);
+      localStorage.setItem("appointment",JSON.stringify(el))
+    });
+
+    if (el.slots === 0) {
+      bookBtn.disabled = true;
+    }
+
+    card.appendChild(bookBtn);
+
+    cardsContainer.appendChild(card);
+  });
+}
+
+function filterSpecialization() {
+  const specializationFilter = document.getElementById("filter-specialization");
+  const selectedSpecialization = specializationFilter.value;
+
+  if (selectedSpecialization === "") {
+    filteredData = doctorsData;
+  } else {
+    filteredData = doctorsData.filter((doctor) => doctor.specialization === selectedSpecialization);
+  }
+
+  displayCards(filteredData);
+}
+
+
+
+function searchDoctor() {
+  const searchInput = document.getElementById("search-doctor");
+  const doctorName = searchInput.value.toLowerCase();
+   console.log(doctorName)
+  filteredData = doctorsData.filter((doctor) => doctor.name.toLowerCase().includes(doctorName));
+  displayCards(filteredData);
+}
+
+function bookAppointment(doctor) {
+  if (doctor.slots > 0) {
+    doctor.slots--;
+    displayCards(filteredData);
+  }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  getData();
+
+  const specializationFilter = document.getElementById("filter-specialization");
+  specializationFilter.addEventListener("change", filterSpecialization);
+
+ 
+  const searchBtn = document.getElementById("search-btn");
+  searchBtn.addEventListener("click", searchDoctor);
+});
+  </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+export const getCoffeeRequest = "GET_COFFEE_REQUEST";
+export const getCoffeeSuccess = "GET_COFFEE_SUCCESS";
+export const getCoffeeFailure = "GET_COFFEE_FAILURE";
+export const getEmployeeRequest = "GET_EMPLOYEE_REQUEST";
+export const getEmployeeSuccess = "GET_EMPLOYEE_SUCCESS";
+export const getEmployeeFailure = "GET_EMPLOYEE_FAILURE";
+export const getRestaurantRequest = "GET_RESTAURANT_REQUEST";
+export const getRestaurantSuccess = "GET_RESTAURANT_SUCCESS";
+export const getRestaurantFailure = "GET_RESTAURANT_FAILURE";

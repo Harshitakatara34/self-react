@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Particular Doctor Appointments details</h1>
+</body>
+</html>
+<script>
+    async function getData(){
+        let temp=await fetch("https://doctors-n4qb.onrender.com/appointments")
+        let data=await temp.json()
+        let res=localStorage.getItem(JSON.parse(appointment))
+        console.log(res)
+        console.log(data)
+    }
+    getData()
+</script>

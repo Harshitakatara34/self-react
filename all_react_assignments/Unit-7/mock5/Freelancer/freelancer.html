@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+       #freelancers {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            justify-content:  center;
+            align-items: center;
+            margin-left: 100px;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>Freelancers</h1>
+    <h1>Sort</h1>
+    <button id="asc">Sort By hour_rate in asc order</button>
+    <button id="desc">Sort By hour_rate in desc order</button>
+    <br />
+    <h1>Filter</h1>
+    <select id="filter">
+      Filter By Profession
+      <option>Student</option>
+      <option>Web Developer</option>
+      <option>Graphic Designer</option>
+    </select>
+    <br />
+    <h1>Search By freelancer Name</h1>
+
+    <input type="search" id="search" placeholder="Search by name" oninput=search() />
+    <div id="freelancers"></div>
+  </body>
+</html>
+<script>
+  let token = localStorage.getItem("token");
+  if (!token) {
+    alert("login first");
+    window.location.href = "./login.html";
+  }
+  let filter = document.getElementById("filter");
+  console.log(filter.value);
+  filter.addEventListener("change", () => filterfunc(filter.value));
+
+  function filterfunc(value) {
+    console.log(value);
+    fetch(
+      `https://freelancer-kcvb.onrender.com/freelancers?profession=${value}`
+    )
+      .then((data) => data.json())
+      .then((res) => displayCard(res))
+      .catch((err) => console.log(err));
+  }
+
+  let button = document.getElementById("asc");
+  button.addEventListener("click", () => sortfunc("asc"));
+
+  let button2 = document.getElementById("desc");
+  button2.addEventListener("click", () => sortfunc("desc"));
+
+  function sortfunc(method="asc") {
+    console.log(method)
+    fetch(
+      `https://freelancer-kcvb.onrender.com/freelancers?_sort=hourly_rate&_order=${method}`
+    )
+      .then((res) => res.json())
+      .then((data) => displayCard(data))
+      .catch((err) => console.log(err));
+  }
+  getData();
+  let button3;
+  let data=[]
+  async function getData() {
+    let temp = await fetch("https://freelancer-kcvb.onrender.com/freelancers");
+    let res = await temp.json();
+    console.log(res);
+    data=res
+    displayCard(res);
+  }
+
+  function displayCard(data) {
+    let div = (document.querySelector("#freelancers").innerHTML = "");
+    data.map((el, i) => {
+      let childdiv = document.createElement("div");
+      childdiv.innerHTML = "";
+      let image = document.createElement("img");
+      image.src = el.profile_picture;
+      let h1 = document.createElement("h1");
+      h1.innerText = el.name;
+      let email = document.createElement("p");
+      email.innerText = "Email:" + el.email;
+      let profession = document.createElement("p");
+      profession.innerText = "Profession:" + el.profession;
+      let skills = document.createElement("p");
+      let skillsText = "Skills: ";
+      for (let i = 0; i < el.skills.length; i++) {
+        skillsText += el.skills[i] + " ";
+      }
+      skills.innerText = skillsText;
+
+      let hourly_Rate = document.createElement("p");
+      hourly_Rate.innerText = "Hourly_Rate:" + el.hourly_rate;
+      let booking_status = document.createElement("p");
+      booking_status.innerText = "booking_status:" + el.isBooked;
+      let button1 = document.createElement("button");
+      button1.innerText = "Edit";
+      let button2 = document.createElement("button");
+      button2.innerText = "Delete";
+      button2.addEventListener("click", () => Deletedata(el.id));
+      button3 = document.createElement("button");
+      button3.innerText = "Hire Me";
+      button3.addEventListener("click", () => hirestatus(el.id));
+
+      childdiv.append(
+        image,
+        h1,
+        email,
+        skills,
+        profession,
+        hourly_Rate,
+        booking_status,
+        button1,
+        button2,
+        button3
+      );
+      document.querySelector("#freelancers").append(childdiv);
+    });
+    // div.append(childdiv)
+  }
+
+  function Deletedata(id) {
+    let data = fetch(`https://freelancer-kcvb.onrender.com/freelancers/${id}`, {
+      method: "DELETE",
+      "Content-Type": "application/json",
+    })
+      .then((res) => res.json())
+      .then((temp) => getData(temp))
+      .catch((err) => console.log(err));
+  }
+
+  async function hirestatus(id) {
+    console.log("clicked");
+    let temp = await fetch(
+      `https://freelancer-kcvb.onrender.com/freelancers/${id}`
+    );
+    let freelancer = await temp.json();
+
+    freelancer.isBooked = true;
+
+    await fetch(`https://freelancer-kcvb.onrender.com/freelancers/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(freelancer),
+    });
+
+    getData();
+    button3.disabled = true;
+  }
+  function search(){
+          let q=document.querySelector("#search").value;
+          console.log(q)
+          let newData=data.filter(function (elem){
+              return elem.name.toLowerCase().includes(q.toLowerCase())
+          })
+          displayCard(newData)
+  }
+</script>

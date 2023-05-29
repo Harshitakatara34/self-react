@@ -1,0 +1,76 @@
+{
+  "products": [
+    {
+      "name": "Hooded Neck ",
+      "image": "https://m.media-amazon.com/images/I/71O2kQ8jPdL._UL1500_.jpg",
+      "price": 1500,
+      "category": "top-wear",
+      "gender": "men",
+      "brand": "Adidas",
+      "id": 1
+    },
+    {
+      "name": "Crop Top Blouse",
+      "image": "https://m.media-amazon.com/images/I/710TPpWr1lL._UL1500_.jpg",
+      "price": 10541,
+      "category": "bottom-wear",
+      "gender": "female",
+      "brand": "Free People",
+      "id": 2
+    },
+    {
+      "name": "Polo Neck T Shirt",
+      "image": "https://m.media-amazon.com/images/I/71kdPu7D1DL._UX679_.jpg",
+      "price": 1500,
+      "category": "top-wear",
+      "gender": "male",
+      "brand": "Adidas",
+      "id": 3
+    },
+    {
+      "name": "Regular Fit T-Shirt",
+      "image": "https://m.media-amazon.com/images/I/714fJKi3NeS._UY879_.jpg",
+      "price": 599,
+      "category": "top-wear",
+      "gender": "male",
+      "brand": "Adidas",
+      "id": 4
+    },
+    {
+      "name": "Regular Fit T-Shirt",
+      "image": "https://m.media-amazon.com/images/I/81nbQny6sYL._UY879_.jpg",
+      "price": 699,
+      "category": "top-wear",
+      "gender": "female",
+      "brand": "Adidas",
+      "id": 5
+    },
+    {
+      "name": "Shirt",
+      "image": "https://m.media-amazon.com/images/I/51pHaUog+DL._UX679_.jpg",
+      "price": 800,
+      "category": "top-wear",
+      "gender": "kids",
+      "brand": "Pro-Ethic Style Developer",
+      "id": 6
+    },
+    {
+      "name": "Running Shoe",
+      "image": "https://m.media-amazon.com/images/I/518pGWpZ5SL._UY695_.jpg",
+      "price": 3777,
+      "category": "shoes",
+      "gender": "male",
+      "brand": "Nike",
+      "id": 8
+    },
+    {
+      "name": "Women T-shirt",
+      "image": "https://m.media-amazon.com/images/I/51WQl5sUNgL._UX679_.jpg",
+      "price": 1500,
+      "category": "top-wear",
+      "gender": "female",
+      "brand": "Bentton",
+      "id": 9
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+Method:GET, Route:/, User-Agent:undefined
+Method:POST, Route:/marvel/addnew, User-Agent:undefined
+Method:POST, Route:/dc/addnew, User-Agent:undefined
+Method:GET, Route:/marvel, User-Agent:undefined
+Method:GET, Route:/marvel?alias=Black%20Widow, User-Agent:undefined
+Method:GET, Route:/dc, User-Agent:undefined
+Method:GET, Route:/dc?alias=Batman, User-Agent:undefined
+Method:GET, Route:/marvel/1, User-Agent:undefined
+Method:GET, Route:/dc/1, User-Agent:undefined
+Method:GET, Route:/winningteam, User-Agent:undefined
+Method:PATCH, Route:/marvel/update/1?role=leader&pass=4534, User-Agent:undefined
+Method:PATCH, Route:/dc/update/1?role=leader&pass=4534, User-Agent:undefined
+Method:DELETE, Route:/marvel/delete/1?role=leader&pass=4534, User-Agent:undefined
+Method:DELETE, Route:/dc/delete/1?role=leader&pass=4534, User-Agent:undefined
+Method:GET, Route:/, User-Agent:undefined
+`

@@ -1,0 +1,97 @@
+<!-- - - This route should be private only the admin with **reqres** login can access it.
+- Display an overall report of the freelancers in the form of a table.
+- The report should include:
+    - A total number of registered freelancers.
+    - Number of freelancers per profession.
+    - Average hourly rate of the freelancers.
+    - No. of Booked and Available freelancers. -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <thead>
+          Number Of Registered Freelancer
+        </thead>
+        <thead>
+          Freelancer By profession
+        </thead>
+        <thead>
+          Average Hourly_Rate of Freelancer
+        </thead>
+        <thead>
+          Booked Freelancer
+        </thead>
+        <thead>
+          Available Freelancer
+        </thead>
+      </tr>
+      <tbody></tbody>
+    </table>
+  </body>
+</html>
+<script>
+  let token = localStorage.getItem("token");
+  if (!token) {
+    alert("login first");
+    window.location.href = "./login.html";
+  }
+  async function getData() {
+    let data = await fetch("https://freelancer-kcvb.onrender.com/freelancers");
+    let res = await data.json();
+    displayData(res);
+  }
+  function displayData(data) {
+  let tbody = document.querySelector("tbody");
+  let tr = document.createElement("tr");
+  let td1 = document.createElement("td");
+  td1.innerText = data.length;
+
+  let professionCount = {};
+  let totalHourlyRate = 0;
+  let bookedCount = 0;
+  let notBookedCount = 0;
+
+  data.forEach((el) => {
+    // Count number of freelancers per profession
+    if (professionCount.hasOwnProperty(el.profession)) {
+      professionCount[el.profession]++;
+    } else {
+      professionCount[el.profession] = 1;
+    }
+
+    // Calculate total hourly rate
+    totalHourlyRate += el.hourly_rate;
+
+    // Count booked and not booked freelancers
+    if (el.isBooked) {
+      bookedCount++;
+    } else {
+      notBookedCount++;
+    }
+  });
+
+  let td2 = document.createElement("td");
+  td2.innerText = JSON.stringify(professionCount);
+
+  let td3 = document.createElement("td");
+  td3.innerText = "Average Hourly Rate: $" + (totalHourlyRate / data.length).toFixed(2);
+
+  let td4 = document.createElement("td");
+  td4.innerText = "Booked: " + bookedCount;
+
+  let td5 = document.createElement("td");
+  td5.innerText = "Available: " + notBookedCount;
+
+  tr.append(td1, td2, td3, td4, td5);
+  tbody.append(tr);
+}
+
+  getData();
+</script>
